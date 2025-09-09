@@ -1,1 +1,1 @@
-# app-registro
+Atualizando app do site registro
