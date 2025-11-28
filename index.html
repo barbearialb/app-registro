@@ -12,7 +12,7 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
-            background-color: #222; /* Fundo escuro neutro */
+            background-color: #222;
             font-family: sans-serif;
         }
         iframe {
@@ -164,6 +164,17 @@
             100% { transform: scale(1); }
         }
 
+        /* --- NOVO: ESTILO DO ÍCONE NO MODAL --- */
+        .img-novo-icone {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px; /* Bordas arredondadas tipo app */
+            margin: 0 auto 15px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Sombra para destacar */
+            border: 2px solid #333;
+        }
+
         /* --- OUTROS BOTÕES --- */
         .btn-principal {
             background: #ff9800;
@@ -191,7 +202,7 @@
             margin-bottom: 10px;
         }
 
-        /* Botão Cinza (Não mostrar) */
+        /* Botão Cinza */
         .btn-cinza-outline {
             background: transparent;
             color: #aaa;
@@ -237,8 +248,10 @@
 
     <div id="aviso-reinstalacao" class="fundo-modal">
         <div class="caixa-modal">
-            <span class="icone-emoji">📲</span>
-            <h3 class="titulo-modal">Novo Ícone Disponível!</h3>
+            
+            <img src="novo_icon_maskable_192.png" alt="Novo Ícone" class="img-novo-icone">
+            
+            <h3 class="titulo-modal">Nova Versão Disponível!</h3>
             
             <div class="box-link">
                 <button class="btn-copiar-gigante" id="btn-acao-copiar">
@@ -278,7 +291,6 @@
             </div>
 
             <button id="btn-fechar-tutorial" class="btn-principal">Entendi, vou instalar</button>
-            
             <button id="btn-nao-mostrar-tutorial" class="btn-cinza-outline">Não mostrar novamente</button>
         </div>
     </div>
@@ -335,8 +347,8 @@
         
         // A. JÁ INSTALADO (Reinstalação)
         if (isPWA && MOSTRAR_AVISO_REINSTALACAO) {
-            // v14 para resetar e testar
-            const bloqueadoReinstall = localStorage.getItem('reinstalacao_bloqueada_v14');
+            // v15 para resetar e testar
+            const bloqueadoReinstall = localStorage.getItem('reinstalacao_bloqueada_v15');
             if (!bloqueadoReinstall) {
                 document.getElementById('aviso-reinstalacao').style.display = 'block';
             }
@@ -344,7 +356,7 @@
 
         // B. NÃO INSTALADO (Tutorial)
         if (!isPWA && MOSTRAR_TUTORIAL_INSTALACAO) {
-            const bloqueadoTutorial = localStorage.getItem('tutorial_bloqueado_v14'); // v14
+            const bloqueadoTutorial = localStorage.getItem('tutorial_bloqueado_v15'); // v15
             
             if (!bloqueadoTutorial) {
                 const modalTutorial = document.getElementById('tutorial-instalacao');
@@ -391,11 +403,11 @@
         });
         document.getElementById('btn-ja-instalei').addEventListener('click', () => {
             document.getElementById('aviso-reinstalacao').style.display = 'none';
-            localStorage.setItem('reinstalacao_bloqueada_v14', 'true');
+            localStorage.setItem('reinstalacao_bloqueada_v15', 'true');
         });
         document.getElementById('btn-nao-mostrar-reinstall').addEventListener('click', () => {
             document.getElementById('aviso-reinstalacao').style.display = 'none';
-            localStorage.setItem('reinstalacao_bloqueada_v14', 'true');
+            localStorage.setItem('reinstalacao_bloqueada_v15', 'true');
         });
 
         // --- Botões Padrão (Navegador) ---
@@ -405,7 +417,7 @@
         document.getElementById('btn-nao-mostrar-tutorial').addEventListener('click', () => {
             document.getElementById('tutorial-instalacao').style.display = 'none';
             // Salva na memória
-            localStorage.setItem('tutorial_bloqueado_v14', 'true');
+            localStorage.setItem('tutorial_bloqueado_v15', 'true');
         });
 
     </script>
