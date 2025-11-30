@@ -21,53 +21,9 @@
             border: none;
         }
 
-        /* --- 1. Aviso UPDATE SW --- */
-        #aviso-atualizacao {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            left: 20px;
-            max-width: 350px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            color: #333;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            z-index: 9999;
-            text-align: center;
-            border: 2px solid #333;
-            animation: subir 0.5s ease-out;
-        }
-
-        #aviso-atualizacao p {
-            margin: 0 0 15px 0;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        #btn-atualizar {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        @keyframes subir {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* --- 2. Estilo dos Modais --- */
+        /* --- 1. MODAL DE ATUALIZAÇÃO DO APK (ESTILO SNAPTUBE) --- */
         .fundo-modal {
-            display: none;
+            display: none; /* Escondido por padrão */
             position: fixed;
             top: 0;
             left: 0;
@@ -76,71 +32,49 @@
             background: rgba(0,0,0,0.92);
             z-index: 20000;
             color: white;
+            align-items: center;
+            justify-content: center;
         }
 
         .caixa-modal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            background: #222;
             width: 85%;
             max-width: 340px;
             text-align: center;
-            background: #222;
             padding: 25px;
             border-radius: 15px;
             border: 1px solid #444;
-            max-height: 90vh;
-            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: surgir 0.3s ease-out;
+        }
+
+        @keyframes surgir {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .titulo-modal {
             color: #ff9800;
-            margin-bottom: 15px;
-            font-size: 20px;
+            margin-bottom: 10px;
+            font-size: 22px;
         }
 
         .texto-instrucao {
             font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.5;
+            margin-bottom: 25px;
             color: #ddd;
-            text-align: left;
-        }
-        
-        .destaque {
-            color: #fff;
-            font-weight: bold;
-            background: #444;
-            padding: 2px 6px;
-            border-radius: 4px;
         }
 
-        /* --- Estilo da Caixa de Link (Limpo) --- */
-        .box-link {
-            background: transparent;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        .icone-emoji {
+            font-size: 50px; 
+            margin-bottom: 10px; 
+            display: block;
         }
 
-        .input-link {
-            background: transparent;
-            border: 1px solid #444;
-            color: #777;
-            width: 95%;
-            font-size: 11px;
-            outline: none;
-            text-align: center;
-            padding: 5px;
-            border-radius: 4px;
-            margin: 0 auto;
-        }
-
-        /* BOTÃO COPIAR GIGANTE */
-        .btn-copiar-gigante {
-            background: #007bff; /* Azul forte */
+        /* BOTÃO DE UPDATE APK (VERMELHO) */
+        .btn-baixar-apk {
+            background: #ff4757; /* Vermelho vibrante */
             color: #fff;
             border: none;
             padding: 15px 0;
@@ -149,60 +83,12 @@
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
-            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        /* --- NOVO: ESTILO DO ÍCONE NO MODAL --- */
-        .img-novo-icone {
-            width: 90px;
-            height: 90px;
-            border-radius: 20px; /* Bordas arredondadas tipo app */
-            margin: 0 auto 15px auto;
-            display: block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Sombra para destacar */
-            border: 2px solid #333;
-        }
-
-        /* --- OUTROS BOTÕES --- */
-        .btn-principal {
-            background: #ff9800;
-            color: #000;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .btn-sucesso {
-            background: #2e7d32; /* Verde */
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        /* Botão Cinza */
         .btn-cinza-outline {
             background: transparent;
             color: #aaa;
@@ -213,23 +99,38 @@
             cursor: pointer;
             font-size: 13px;
             width: 100%;
-            margin-bottom: 10px;
         }
 
-        .btn-link {
-            background: transparent;
-            color: #888;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- 2. Aviso Pequeno (Update interno do site/SW) --- */
+        #aviso-sw {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            left: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 9999;
+            text-align: center;
+            border: 1px solid #555;
+        }
+        #btn-reload-sw {
+            margin-left: 10px;
+            padding: 5px 15px;
+            background: white;
+            color: black;
             border: none;
-            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 12px;
-            text-decoration: underline;
-        }
-
-        .icone-emoji {
-            font-size: 40px; 
-            margin-bottom: 10px; 
-            display: block;
         }
     </style>
 </head>
@@ -240,90 +141,113 @@
         allow="camera; microphone; geolocation; payment; fullscreen"
         sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-presentation allow-downloads allow-top-navigation">
     </iframe>
-    
-    <div id="aviso-atualizacao">
-        <p>Nova versão disponível!</p>
-        <button id="btn-atualizar">ATUALIZAR APP</button>
-    </div>
 
-    <div id="aviso-reinstalacao" class="fundo-modal">
+    <div id="modal-apk-update" class="fundo-modal">
         <div class="caixa-modal">
+            <span class="icone-emoji">🚀</span>
+            <h3 class="titulo-modal">Nova Versão!</h3>
             
-            <img src="novo_icon_any_192.png" alt="Novo Ícone" class="img-novo-icone">
-            
-            <h3 class="titulo-modal">Nova Versão Disponível!</h3>
-            
-            <div class="box-link">
-                <button class="btn-copiar-gigante" id="btn-acao-copiar">
-                    <span>COPIAR LINK 📋</span>
-                </button>
-                
-                <input type="text" class="input-link" value="https://barbearialb.github.io/app-registro/" id="link-para-copiar" readonly>
-            </div>
+            <p class="texto-instrucao">
+                Uma atualização importante está disponível.<br>
+                Baixe agora para corrigir erros e atualizar o ícone.
+            </p>
 
-            <div class="texto-instrucao" style="font-size: 14px;">
-                <p>1. Copie o link acima.</p>
-                <p>2. Saia e <strong>Desinstale</strong> este app 🗑️.</p>
-                <p>3. Abra o Chrome e <strong>Cole</strong> o link.</p>
-            </div>
-
-            <button id="btn-entendi-reinstall" class="btn-principal">Entendi, vou fazer</button>
-            <button id="btn-ja-instalei" class="btn-sucesso">Já instalei a nova versão</button>
-            <button id="btn-nao-mostrar-reinstall" class="btn-link">Não mostrar novamente</button>
+            <button id="btn-baixar-apk" class="btn-baixar-apk">BAIXAR APK AGORA ⬇️</button>
+            <button onclick="fecharModalAPK()" class="btn-cinza-outline">Lembrar depois</button>
         </div>
     </div>
 
-    <div id="tutorial-instalacao" class="fundo-modal">
-        <div class="caixa-modal">
-            <span class="icone-emoji">⬇️</span>
-            <h3 class="titulo-modal">Instale o App</h3>
-            
-            <div id="msg-android" style="display:none;" class="texto-instrucao">
-                Para uma melhor experiência:<br><br>
-                1. Toque nos <strong>3 pontinhos</strong> <span class="destaque">⋮</span> no canto superior.<br>
-                2. Selecione <span class="destaque">Adicionar à Tela Inicial</span> ou <span class="destaque">Instalar Aplicativo</span>.
-            </div>
-
-            <div id="msg-ios" style="display:none;" class="texto-instrucao">
-                Para instalar no seu iPhone:<br><br>
-                1. Toque no botão <strong>Compartilhar</strong> <span class="destaque">⎋</span> na barra inferior.<br>
-                2. Role para cima e escolha <span class="destaque">Adicionar à Tela de Início</span>.
-            </div>
-
-            <button id="btn-fechar-tutorial" class="btn-principal">Entendi, vou instalar</button>
-            <button id="btn-nao-mostrar-tutorial" class="btn-cinza-outline">Não mostrar novamente</button>
-        </div>
+    <div id="aviso-sw">
+        Atualizando sistema... 
+        <button id="btn-reload-sw">Recarregar</button>
     </div>
-    
+
     <script>
-        const MOSTRAR_AVISO_REINSTALACAO = true; 
-        const MOSTRAR_TUTORIAL_INSTALACAO = true; 
-        
-        let novoWorker;
+        // === CONFIGURAÇÃO ===
+        // Cria este arquivo no GitHub com: { "versao_atual": 1, "link_apk": "..." }
+        const URL_VERSAO = 'versao.json'; 
 
-        // 1. SW Update
-        function mostrarNotificacaoAtualizacao() {
-            document.getElementById('aviso-atualizacao').style.display = 'block';
+        // ==========================================
+        // 1. LÓGICA "SNAPTUBE" (Verifica APK novo)
+        // ==========================================
+        async function verificarAtualizacaoAPK() {
+            try {
+                // 1. Lê o arquivo no GitHub
+                const resposta = await fetch(URL_VERSAO);
+                const dados = await resposta.json();
+                
+                const versaoNoServidor = dados.versao_atual;
+                const linkApk = dados.link_apk;
+
+                // 2. Lê a versão salva no celular
+                let versaoInstalada = localStorage.getItem('app_versao_apk_instalada');
+                
+                // Se for a primeira vez, definimos como 1
+                if (!versaoInstalada) {
+                    versaoInstalada = 1; 
+                    localStorage.setItem('app_versao_apk_instalada', 1);
+                }
+
+                // 3. Compara
+                if (versaoNoServidor > versaoInstalada) {
+                    abrirModalAPK(linkApk, versaoNoServidor);
+                }
+
+            } catch (erro) {
+                console.log("Erro ao verificar versão:", erro);
+            }
         }
 
+        function abrirModalAPK(link, novaVersao) {
+            const modal = document.getElementById('modal-apk-update');
+            const btn = document.getElementById('btn-baixar-apk');
+            
+            modal.style.display = 'flex';
+
+            btn.onclick = function() {
+                // Atualiza o registro local
+                localStorage.setItem('app_versao_apk_instalada', novaVersao);
+                // Inicia o download
+                window.location.href = link;
+                // Fecha modal
+                modal.style.display = 'none';
+            };
+        }
+
+        function fecharModalAPK() {
+            document.getElementById('modal-apk-update').style.display = 'none';
+        }
+
+        // Verifica 3 segundos após abrir o app
+        setTimeout(verificarAtualizacaoAPK, 3000);
+
+
+        // ==========================================
+        // 2. LÓGICA PADRÃO (Service Worker)
+        // ==========================================
+        // Mantemos isso para o site funcionar offline e carregar rápido
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(reg => {
-                    if (reg.waiting) {
-                        novoWorker = reg.waiting;
-                        mostrarNotificacaoAtualizacao();
-                    }
-                    reg.addEventListener('updatefound', () => {
-                        novoWorker = reg.installing;
-                        novoWorker.addEventListener('statechange', () => {
-                            if (novoWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                mostrarNotificacaoAtualizacao();
-                            }
-                        });
+            let newWorker;
+            
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                reg.addEventListener('updatefound', () => {
+                    newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // Mostra aviso pequeno no rodapé
+                            const aviso = document.getElementById('aviso-sw');
+                            aviso.style.display = 'block';
+                            
+                            document.getElementById('btn-reload-sw').onclick = () => {
+                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                window.location.reload();
+                            };
+                        }
                     });
                 });
             });
 
+            // Atualiza a página quando o novo SW assumir
             let refreshing;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
                 if (refreshing) return;
@@ -331,95 +255,6 @@
                 refreshing = true;
             });
         }
-
-        document.getElementById('btn-atualizar').addEventListener('click', () => {
-            if (novoWorker) {
-                const btn = document.getElementById('btn-atualizar');
-                btn.innerText = "ATUALIZANDO...";
-                btn.style.backgroundColor = "#ccc";
-                novoWorker.postMessage({ type: 'SKIP_WAITING' });
-            }
-        });
-
-        // 2. Lógica de Detecção
-        const isPWA = window.matchMedia('(display-mode: standalone)').matches;
-        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        
-        // A. JÁ INSTALADO (Reinstalação)
-        if (isPWA && MOSTRAR_AVISO_REINSTALACAO) {
-            // v15 para resetar e testar
-            const bloqueadoReinstall = localStorage.getItem('reinstalacao_bloqueada_v15');
-            if (!bloqueadoReinstall) {
-                document.getElementById('aviso-reinstalacao').style.display = 'block';
-            }
-        }
-
-        // B. NÃO INSTALADO (Tutorial)
-        if (!isPWA && MOSTRAR_TUTORIAL_INSTALACAO) {
-            const bloqueadoTutorial = localStorage.getItem('tutorial_bloqueado_v15'); // v15
-            
-            if (!bloqueadoTutorial) {
-                const modalTutorial = document.getElementById('tutorial-instalacao');
-                const txtAndroid = document.getElementById('msg-android');
-                const txtIOS = document.getElementById('msg-ios');
-
-                modalTutorial.style.display = 'block';
-
-                if (isIOS) {
-                    txtIOS.style.display = 'block';
-                } else {
-                    txtAndroid.style.display = 'block'; 
-                }
-            }
-        }
-
-        // --- AÇÃO: COPIAR ---
-        document.getElementById('btn-acao-copiar').addEventListener('click', function() {
-            const inputLink = document.getElementById('link-para-copiar');
-            inputLink.select();
-            inputLink.setSelectionRange(0, 99999); // Mobile fix
-            
-            navigator.clipboard.writeText(inputLink.value).then(() => {
-                const btn = document.getElementById('btn-acao-copiar');
-                const span = btn.querySelector('span');
-                const textoOriginal = span.innerText;
-                
-                // Feedback visual
-                span.innerText = "LINK COPIADO! ✅";
-                btn.style.backgroundColor = "#2e7d32"; // Verde Sucesso
-                btn.style.animation = "none"; // Para de pulsar
-                
-                setTimeout(() => {
-                    span.innerText = textoOriginal;
-                    btn.style.backgroundColor = "#007bff"; // Volta pro Azul
-                    btn.style.animation = "pulse 2s infinite"; // Volta a pulsar
-                }, 2500);
-            });
-        });
-
-        // --- Botões Padrão (PWA) ---
-        document.getElementById('btn-entendi-reinstall').addEventListener('click', () => {
-            document.getElementById('aviso-reinstalacao').style.display = 'none';
-        });
-        document.getElementById('btn-ja-instalei').addEventListener('click', () => {
-            document.getElementById('aviso-reinstalacao').style.display = 'none';
-            localStorage.setItem('reinstalacao_bloqueada_v15', 'true');
-        });
-        document.getElementById('btn-nao-mostrar-reinstall').addEventListener('click', () => {
-            document.getElementById('aviso-reinstalacao').style.display = 'none';
-            localStorage.setItem('reinstalacao_bloqueada_v15', 'true');
-        });
-
-        // --- Botões Padrão (Navegador) ---
-        document.getElementById('btn-fechar-tutorial').addEventListener('click', () => {
-            document.getElementById('tutorial-instalacao').style.display = 'none';
-        });
-        document.getElementById('btn-nao-mostrar-tutorial').addEventListener('click', () => {
-            document.getElementById('tutorial-instalacao').style.display = 'none';
-            // Salva na memória
-            localStorage.setItem('tutorial_bloqueado_v15', 'true');
-        });
-
     </script>
 </body>
 </html>
