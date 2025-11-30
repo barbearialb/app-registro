@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "io.github.barbearialb.twa",
-        "sha256_cert_fingerprints": ["99:AC:95:91:42:1D:0E:56:A4:14:19:EB:C9:EA:0A:EB:7C:C8:27:71:DB:3C:74:9C:1E:14:E4:26:9D:4C:B5:36"]
+        "sha256_cert_fingerprints": ["7D:DD:0D:A1:12:69:0D:39:D0:A6:1F:9D:75:15:48:5D:3E:E4:01:F1:C7:91:89:9B:83:57:48:8B:F1:2D:4F:70"]
       }
     }]
