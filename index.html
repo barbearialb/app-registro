@@ -21,7 +21,7 @@
             border: none;
         }
 
-        /* --- 1. MODAL DE ATUALIZAÇÃO DO APK (ESTILO SNAPTUBE) --- */
+        /* --- MODAL DE ATUALIZAÇÃO --- */
         .fundo-modal {
             display: none; /* Escondido por padrão */
             position: fixed;
@@ -72,9 +72,8 @@
             display: block;
         }
 
-        /* BOTÃO DE UPDATE APK (VERMELHO) */
-        .btn-baixar-apk {
-            background: #ff4757; /* Vermelho vibrante */
+        /* BOTÃO DE AÇÃO (Cor definida via JS) */
+        .btn-acao {
             color: #fff;
             border: none;
             padding: 15px 0;
@@ -85,7 +84,7 @@
             width: 100%;
             display: block;
             margin-bottom: 15px;
-            box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0, 0.4);
             animation: pulse 2s infinite;
         }
 
@@ -107,7 +106,15 @@
             100% { transform: scale(1); }
         }
 
-        /* --- 2. Aviso Pequeno (Update interno do site/SW) --- */
+        .destaque {
+            background: #444;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* --- Aviso Pequeno (Update interno do site/SW) --- */
         #aviso-sw {
             display: none;
             position: fixed;
@@ -142,18 +149,17 @@
         sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-presentation allow-downloads allow-top-navigation">
     </iframe>
 
-    <div id="modal-apk-update" class="fundo-modal">
+    <div id="modal-update" class="fundo-modal">
         <div class="caixa-modal">
             <span class="icone-emoji">🚀</span>
-            <h3 class="titulo-modal">Nova Versão!</h3>
+            <h3 class="titulo-modal" id="modal-titulo">Nova Versão!</h3>
             
-            <p class="texto-instrucao">
-                Uma atualização importante está disponível.<br>
-                Baixe agora para corrigir erros e atualizar o ícone.
-            </p>
+            <div id="modal-texto" class="texto-instrucao">
+                Carregando...
+            </div>
 
-            <button id="btn-baixar-apk" class="btn-baixar-apk">BAIXAR APK AGORA ⬇️</button>
-            <button onclick="fecharModalAPK()" class="btn-cinza-outline">Lembrar depois</button>
+            <button id="btn-update-acao" class="btn-acao">ATUALIZAR</button>
+            <button onclick="fecharModal()" class="btn-cinza-outline">Lembrar depois</button>
         </div>
     </div>
 
@@ -164,33 +170,37 @@
 
     <script>
         // === CONFIGURAÇÃO ===
-        // Cria este arquivo no GitHub com: { "versao_atual": 1, "link_apk": "..." }
         const URL_VERSAO = 'versao.json'; 
 
-        // ==========================================
-        // 1. LÓGICA "SNAPTUBE" (Verifica APK novo)
-        // ==========================================
-        async function verificarAtualizacaoAPK() {
+        // DETECTA IPHONE E APP
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        const isApp = window.matchMedia('(display-mode: standalone)').matches;
+
+        async function verificarAtualizacao() {
+            
+            // --- PROTEÇÃO: Se for site no navegador, ignora ---
+            if (!isApp) {
+                console.log("Aberto no navegador: Verificação de atualização APK ignorada.");
+                return; 
+            }
+
             try {
-                // 1. Lê o arquivo no GitHub
                 const resposta = await fetch(URL_VERSAO);
                 const dados = await resposta.json();
                 
                 const versaoNoServidor = dados.versao_atual;
                 const linkApk = dados.link_apk;
 
-                // 2. Lê a versão salva no celular
-                let versaoInstalada = localStorage.getItem('app_versao_apk_instalada');
+                // Usa chave exclusiva: 'app_diario_lb_versao'
+                let versaoInstalada = localStorage.getItem('app_diario_lb_versao');
                 
-                // Se for a primeira vez, definimos como 1
                 if (!versaoInstalada) {
                     versaoInstalada = 1; 
-                    localStorage.setItem('app_versao_apk_instalada', 1);
+                    localStorage.setItem('app_diario_lb_versao', 1);
                 }
 
-                // 3. Compara
                 if (versaoNoServidor > versaoInstalada) {
-                    abrirModalAPK(linkApk, versaoNoServidor);
+                    abrirModalInteligente(linkApk, versaoNoServidor);
                 }
 
             } catch (erro) {
@@ -198,46 +208,57 @@
             }
         }
 
-        function abrirModalAPK(link, novaVersao) {
-            const modal = document.getElementById('modal-apk-update');
-            const btn = document.getElementById('btn-baixar-apk');
+        function abrirModalInteligente(link, novaVersao) {
+            const modal = document.getElementById('modal-update');
+            const titulo = document.getElementById('modal-titulo');
+            const texto = document.getElementById('modal-texto');
+            const btn = document.getElementById('btn-update-acao');
             
             modal.style.display = 'flex';
 
-            btn.onclick = function() {
-                // Atualiza o registro local
-                localStorage.setItem('app_versao_apk_instalada', novaVersao);
-                // Inicia o download
-                window.location.href = link;
-                // Fecha modal
-                modal.style.display = 'none';
-            };
+            if (isIOS) {
+                // --- MODO IPHONE ---
+                titulo.innerText = "Atualize o Ícone";
+                texto.innerHTML = "Para ver o novo ícone no iPhone:<br><br>1. Saia e <strong>Remova</strong> este app.<br>2. Abra o site no Safari.<br>3. Toque em <span class='destaque'>Compartilhar</span> e <span class='destaque'>Adicionar à Tela de Início</span>.";
+                
+                btn.innerText = "Entendi";
+                btn.style.backgroundColor = "#007bff"; // Azul
+                btn.onclick = function() {
+                    localStorage.setItem('app_diario_lb_versao', novaVersao);
+                    modal.style.display = 'none';
+                };
+
+            } else {
+                // --- MODO ANDROID (APK) ---
+                titulo.innerText = "Nova Versão!";
+                texto.innerHTML = "Uma atualização importante está disponível.<br>Baixe agora para corrigir erros e atualizar o ícone.";
+                
+                btn.innerText = "BAIXAR APK ⬇️";
+                btn.style.backgroundColor = "#ff4757"; // Vermelho
+                btn.onclick = function() {
+                    localStorage.setItem('app_diario_lb_versao', novaVersao);
+                    window.location.href = link;
+                    modal.style.display = 'none';
+                };
+            }
         }
 
-        function fecharModalAPK() {
-            document.getElementById('modal-apk-update').style.display = 'none';
+        function fecharModal() {
+            document.getElementById('modal-update').style.display = 'none';
         }
 
-        // Verifica 3 segundos após abrir o app
-        setTimeout(verificarAtualizacaoAPK, 3000);
+        setTimeout(verificarAtualizacao, 3000);
 
-
-        // ==========================================
-        // 2. LÓGICA PADRÃO (Service Worker)
-        // ==========================================
-        // Mantemos isso para o site funcionar offline e carregar rápido
+        // --- Service Worker Padrão ---
         if ('serviceWorker' in navigator) {
             let newWorker;
-            
             navigator.serviceWorker.register('sw.js').then(reg => {
                 reg.addEventListener('updatefound', () => {
                     newWorker = reg.installing;
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            // Mostra aviso pequeno no rodapé
                             const aviso = document.getElementById('aviso-sw');
                             aviso.style.display = 'block';
-                            
                             document.getElementById('btn-reload-sw').onclick = () => {
                                 newWorker.postMessage({ type: 'SKIP_WAITING' });
                                 window.location.reload();
@@ -246,8 +267,6 @@
                     });
                 });
             });
-
-            // Atualiza a página quando o novo SW assumir
             let refreshing;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
                 if (refreshing) return;
